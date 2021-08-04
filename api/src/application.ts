@@ -13,7 +13,8 @@ import {MySequence} from './sequence';
 import multer from 'multer';
 import {FILE_UPLOAD_SERVICE, STORAGE_DIRECTORY} from './keys';
 
-require('dotenv').config();
+import dotenv from 'dotenv';
+dotenv.config();
 
 export {ApplicationConfig};
 
@@ -55,7 +56,7 @@ export class ChallengeApi extends BootMixin(
    */
    protected configureFileUpload(destination?: string) {
     // Upload files to `dist/.sandbox` by default
-    destination = destination ?? path.join(__dirname, '../.sandbox');
+    destination = destination ?? path.join(__dirname, '../',`${process.env.UPLOAD_DIR}`);
     this.bind(STORAGE_DIRECTORY).to(destination);
     const multerOptions: multer.Options = {
       storage: multer.diskStorage({
