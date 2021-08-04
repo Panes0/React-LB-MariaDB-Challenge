@@ -37,12 +37,12 @@ export class MovieController {
         'application/json': {
           schema: getModelSchemaRef(Movie, {
             title: 'NewMovie',
-            exclude: ['id'],
+            
           }),
         },
       },
     })
-    movie: Omit<Movie, 'id'>,
+    movie: Movie,
   ): Promise<Movie> {
     return this.movieRepository.create(movie);
   }
@@ -105,7 +105,7 @@ export class MovieController {
     },
   })
   async findById(
-    @param.path.number('id') id: number,
+    @param.path.string('id') id: string,
     @param.filter(Movie, {exclude: 'where'}) filter?: FilterExcludingWhere<Movie>
   ): Promise<Movie> {
     return this.movieRepository.findById(id, filter);
@@ -116,7 +116,7 @@ export class MovieController {
     description: 'Movie PATCH success',
   })
   async updateById(
-    @param.path.number('id') id: number,
+    @param.path.string('id') id: string,
     @requestBody({
       content: {
         'application/json': {
@@ -134,7 +134,7 @@ export class MovieController {
     description: 'Movie PUT success',
   })
   async replaceById(
-    @param.path.number('id') id: number,
+    @param.path.string('id') id: string,
     @requestBody() movie: Movie,
   ): Promise<void> {
     await this.movieRepository.replaceById(id, movie);
@@ -144,7 +144,7 @@ export class MovieController {
   @response(204, {
     description: 'Movie DELETE success',
   })
-  async deleteById(@param.path.number('id') id: number): Promise<void> {
+  async deleteById(@param.path.string('id') id: string): Promise<void> {
     await this.movieRepository.deleteById(id);
   }
 }

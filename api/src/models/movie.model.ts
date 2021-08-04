@@ -3,15 +3,9 @@ import {Entity, model, property} from '@loopback/repository';
 @model()
 export class Movie extends Entity {
   @property({
-    type: 'number',
-    id: true,
-    generated: true,
-  })
-  id?: number;
-
-  @property({
     type: 'string',
     required: true,
+    id: true,
   })
   title: string;
 

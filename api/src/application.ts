@@ -13,6 +13,8 @@ import {MySequence} from './sequence';
 import multer from 'multer';
 import {FILE_UPLOAD_SERVICE, STORAGE_DIRECTORY} from './keys';
 
+require('dotenv').config();
+
 export {ApplicationConfig};
 
 export class ChallengeApi extends BootMixin(

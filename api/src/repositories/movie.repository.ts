@@ -5,7 +5,7 @@ import {Movie, MovieRelations} from '../models';
 
 export class MovieRepository extends DefaultCrudRepository<
   Movie,
-  typeof Movie.prototype.id,
+  typeof Movie.prototype.title,
   MovieRelations
 > {
   constructor(
