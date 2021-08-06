@@ -1,9 +1,19 @@
 import React from "react";
+import { MovieObj } from "../types";
 
-function MovieCard() {
+interface I_Param {
+  movieData: MovieObj;
+}
+
+function MovieCard(params: I_Param) {
+  let movieData = params.movieData;
   return (
-    <div>
-      <h1>CARD COMPONENT</h1>
+    <div className="card">
+      <div className="content">
+        <div className="header">{movieData.title}</div>
+        <div className="meta">{movieData.release}</div>
+        <div className="description">{movieData.description}</div>
+      </div>
     </div>
   );
 }
