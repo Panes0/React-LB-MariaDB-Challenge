@@ -119,7 +119,7 @@ export class FileUploadController {
                 for (let movie of normalized_results) {
                     axios
                         .post(
-                            "http://localhost:3000/movies",
+                            "http://localhost:3001/movies",
                             JSON.stringify(movie),
                             {
                                 headers: {
