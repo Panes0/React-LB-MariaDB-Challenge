@@ -7,7 +7,7 @@ import { MovieObj } from "../types";
 
 function Home() {
   const [movieList, setMovieList] = useState<MovieObj[]>([]); //array with fetched movies
-  const [rerender, setRerender] = useState<boolean>(false); //array with fetched movies
+  const [rerender, setRerender] = useState<boolean>(false);
 
   async function fetchMovies(): Promise<MovieObj[]> {
     let response = await axios.get(`${BACK_URL}/movies`);
@@ -31,6 +31,7 @@ function Home() {
         {movieList.map((movie) => {
           return (
             <MovieCard
+              key={movie.title}
               movieData={movie}
               rerender={rerender}
               setRerender={setRerender}
