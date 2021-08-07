@@ -7,6 +7,7 @@ import { MovieObj } from "../types";
 
 function Home() {
   const [movieList, setMovieList] = useState<MovieObj[]>([]); //array with fetched movies
+  const [rerender, setRerender] = useState<boolean>(false); //array with fetched movies
 
   async function fetchMovies(): Promise<MovieObj[]> {
     let response = await axios.get(`${BACK_URL}/movies`);
@@ -22,13 +23,19 @@ function Home() {
         setMovieList(movies);
       })
       .catch((error) => console.error(error));
-  }, []);
+  }, [rerender]);
 
   return (
     <div>
       <div className="ui cards">
         {movieList.map((movie) => {
-          return <MovieCard movieData={movie} />;
+          return (
+            <MovieCard
+              movieData={movie}
+              rerender={rerender}
+              setRerender={setRerender}
+            />
+          );
         })}
       </div>
     </div>
