@@ -3,12 +3,15 @@ import Swal from "sweetalert2";
 import { MovieObj } from "../types";
 import axios from "axios";
 import { BACK_URL } from "../config";
+import { useHistory } from "react-router-dom";
 
 const TITLE = 0;
 const RELEASE = 1;
 const DESCRIPTION = 2;
 
 function Add() {
+  const history = useHistory();
+
   //checks valid input and uploads to DB
   function onSubmit(event: any) {
     event.preventDefault();
@@ -19,17 +22,26 @@ function Add() {
 
     //////TESTING VALUES//////
     console.log(movie);
-    //////
+    /////
+
+    // for number validation
+    let reg = new RegExp("^\\d+$");
 
     //form validation
     if (title.length === 0) {
       Swal.fire("Title cannot be empty");
+    } else if (!reg.test(release) && release !== "") {
+      Swal.fire("Release year must be a number");
     } else {
       axios
         .post(`${BACK_URL}/movies`, JSON.stringify(movie), {
           headers: {
             "Content-Type": "application/json",
           },
+        })
+        .then(() => {
+          Swal.fire("Movie added!");
+          history.push("/");
         })
         .catch(function (error) {
           console.log("ERROR: ", error.response.data);
@@ -42,20 +54,33 @@ function Add() {
     console.log("FILE: ", event.target[0].files[0]);
     let up_file = event.target[0].files[0];
 
-    // formdata will be sent by html request
-    let formData = new FormData();
-    // Update the formData object
-    console.log(up_file.name, up_file);
-    formData.append("File", up_file);
-    console.log(formData);
-
-    axios
-      .post(`${BACK_URL}/files`, formData, {
-        headers: {
-          "Content-Type": "multipart/form-data",
-        },
+    //check csv extension
+    if (
+      up_file.name.split(".").some((element: string) => {
+        return element === "csv";
       })
-      .catch((e) => console.error(e));
+    ) {
+      // formdata will be sent by html request
+      let formData = new FormData();
+      // Update the formData object
+      console.log(up_file.name, up_file);
+      formData.append("File", up_file);
+      console.log(formData);
+
+      axios
+        .post(`${BACK_URL}/files`, formData, {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        })
+        .then(() => {
+          Swal.fire("File uploaded!");
+          history.push("/");
+        })
+        .catch((e) => console.error(e));
+    } else {
+      Swal.fire("Selected file is not .csv");
+    }
   }
 
   return (

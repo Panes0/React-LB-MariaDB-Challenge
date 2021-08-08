@@ -46,27 +46,33 @@ function MovieCard(params: I_Param) {
     //////TESTING VALUES//////
     console.log("newMovieData: ", newMovieData);
     //////
-    axios
-      .put(
-        `${BACK_URL}/movies/${movieData.title}`,
-        JSON.stringify(newMovieData),
-        {
-          headers: {
-            "Content-Type": "application/json",
-          },
-        }
-      )
-      .then(() => {
-        Swal.fire("Data Updated!");
-      })
-      .catch(function (error) {
-        Swal.fire("Error updating data.");
-        console.log("ERROR: ", error.response.data);
-      })
-      .finally(() => {
-        toggleEdit();
-        setRerender(!rerender); //this forces parent component to rerender
-      });
+    // for number validation
+    let reg = new RegExp("^\\d+$");
+    if (!reg.test(release) && release !== "") {
+      Swal.fire("Release year must be a number");
+    } else {
+      axios
+        .put(
+          `${BACK_URL}/movies/${movieData.title}`,
+          JSON.stringify(newMovieData),
+          {
+            headers: {
+              "Content-Type": "application/json",
+            },
+          }
+        )
+        .then(() => {
+          Swal.fire("Data Updated!");
+        })
+        .catch(function (error) {
+          Swal.fire("Error updating data.");
+          console.log("ERROR: ", error.response.data);
+        })
+        .finally(() => {
+          toggleEdit();
+          setRerender(!rerender); //this forces parent component to rerender
+        });
+    }
   }
 
   if (editing) {

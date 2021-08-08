@@ -1,2 +1,2 @@
 export const BACK_URL = "http://localhost:3001";
-export const PAGE_LIMIT = 3;
+export const PAGE_LIMIT = 4;
