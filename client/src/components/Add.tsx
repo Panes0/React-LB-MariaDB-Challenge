@@ -60,36 +60,50 @@ function Add() {
 
   return (
     <div>
-      <div id="upload">
+      <div id="upload" className="ui raised very padded text container segment">
         <h3>Upload files</h3>
         <form id="uploadForm" onSubmit={onUpload}>
-          <input type="file" id="files" name="files" multiple />
+          <input
+            className="ui button positive basic button"
+            type="file"
+            id="files"
+            name="files"
+            multiple
+          />
           <br />
           <br />
-          <input type="submit" value="Upload" />
+          <input
+            className="ui button positive basic button"
+            type="submit"
+            value="Upload"
+          />
         </form>
       </div>
 
-      <form className="ui form" onSubmit={onSubmit}>
-        <div className="field">
-          <label>Title</label>
-          <input type="text" name="Title" placeholder="Title" />
-        </div>
+      {/* ADD FORM */}
+      <div className="ui raised very padded text container segment">
+        <h3>Movie entry</h3>
+        <form className="ui form" onSubmit={onSubmit}>
+          <div className="field">
+            <label>Title</label>
+            <input type="text" name="Title" placeholder="Title" />
+          </div>
 
-        <div className="field">
-          <label>Release Date</label>
-          <input type="text" name="Release Date" placeholder="Release Date" />
-        </div>
+          <div className="field">
+            <label>Release Date</label>
+            <input type="text" name="Release Date" placeholder="Release Date" />
+          </div>
 
-        <div className="field">
-          <label>Description</label>
-          <input type="text" name="Description" placeholder="Description" />
-        </div>
+          <div className="field">
+            <label>Description</label>
+            <input type="text" name="Description" placeholder="Description" />
+          </div>
 
-        <button className="ui button" type="submit">
-          Submit
-        </button>
-      </form>
+          <button className="ui button positive basic" type="submit">
+            Submit
+          </button>
+        </form>
+      </div>
     </div>
   );
 }
