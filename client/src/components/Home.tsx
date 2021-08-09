@@ -4,7 +4,6 @@ import { useEffect, useState } from "react";
 import MovieCard from "./MovieCard";
 import axios from "axios";
 import { MovieObj } from "../types";
-import { count } from "console";
 
 function Home() {
   const [movieList, setMovieList] = useState<MovieObj[]>([]); //array with fetched movies
